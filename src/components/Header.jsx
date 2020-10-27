@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -15,12 +16,19 @@ const HeaderContainer = styled.header`
   ul {
     list-style: none;
   }
-  @media (min-width: 768px) {
+  ul li a {
+    text-decoration: none;
+    color: var(--white);
+  }
+  @media (min-width: 900px) {
     flex-direction: row;
     justify-content: space-between;
-
     ul li {
       display: inline-block;
+      margin-right: 1.5rem;
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 `;
@@ -31,7 +39,9 @@ const Header = () => {
       <h1>Aplicacion de productividad</h1>
       <nav>
         <ul>
-          <li>Nueva tarea</li>
+          <li>
+            <Link>Nueva tarea</Link>
+          </li>
           <li>Historial de tareas completadas</li>
           <li>Prellenar tareas</li>
         </ul>
