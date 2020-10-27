@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import TareaContext from "../context/tareaContext";
 
 const NuevaTareaContainer = styled.main`
   min-height: 80vh;
@@ -52,6 +55,8 @@ const NuevaTareaContainer = styled.main`
 `;
 
 const NuevaTarea = () => {
+  const { agregarTarea } = useContext(TareaContext);
+
   const history = useHistory();
 
   const [tarea, guardarTarea] = useState({
@@ -76,6 +81,8 @@ const NuevaTarea = () => {
       return;
     }
     guardarError(false);
+    agregarTarea(tarea);
+    Swal.fire("¡Tarea creada!", "La tarea fue creada con exito.", "success");
     history.push("/");
   };
 
