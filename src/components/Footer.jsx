@@ -12,7 +12,6 @@ const FooterContainer = styled.footer`
   div p {
     margin: 0.5rem 0;
     a {
-      text-decoration: none;
       color: var(--white);
     }
   }

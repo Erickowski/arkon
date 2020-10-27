@@ -4,7 +4,9 @@
       "id": 1,
       "nombre": "Tarea 1",
       "duracion": "1 hora",
-      "estado": 0
+      "estado": 0,
+      "horainicio": "9:45am",
+      "diainicio": "03/08/1995"
     }
   ]
 }
