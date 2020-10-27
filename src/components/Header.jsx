@@ -16,7 +16,8 @@ const HeaderContainer = styled.header`
   ul {
     list-style: none;
   }
-  ul li a {
+  ul li a,
+  h1 a {
     text-decoration: none;
     color: var(--white);
   }
@@ -36,11 +37,16 @@ const HeaderContainer = styled.header`
 const Header = () => {
   return (
     <HeaderContainer>
-      <h1>Aplicacion de productividad</h1>
+      <h1>
+        <Link to="/">Aplicación de productividad</Link>
+      </h1>
       <nav>
         <ul>
           <li>
-            <Link>Nueva tarea</Link>
+            <Link to="/">Mis tareas</Link>
+          </li>
+          <li>
+            <Link to="/nueva-tarea">Nueva tarea</Link>
           </li>
           <li>Historial de tareas completadas</li>
           <li>Prellenar tareas</li>
