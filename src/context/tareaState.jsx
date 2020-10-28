@@ -4,11 +4,16 @@ import shortid from "shortid";
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
 
-import { CREAR_TAREA } from "../types";
+import { ACTUALIZAR_TAREA, CREAR_TAREA, OBTENER_TAREA } from "../types";
 
 const TareaState = ({ children }) => {
   const initialState = {
     tareas: [],
+    tareaeditada: {
+      nombre: "",
+      duracion: "",
+      tiempo: "",
+    },
   };
 
   const [state, dispatch] = useReducer(TareaReducer, initialState);
@@ -18,21 +23,23 @@ const TareaState = ({ children }) => {
   const agregarTarea = (tarea) => {
     tarea.id = shortid.generate();
     tarea.estado = "Sin empezar";
+    tarea.inicio = false;
     switch (tarea.duracion) {
       case "corta":
-        tarea.duracion = 0.5;
+        tarea.tiempo = 30;
         break;
-      case "mediana":
-        tarea.duracion = 0.75;
+      case "media":
+        tarea.tiempo = 45;
         break;
       case "larga":
-        tarea.duracion = 1;
+        tarea.tiempo = 60;
         break;
 
       default:
+        tarea.tiempo = tarea.duracion;
+        tarea.duracion = "personalizada";
         break;
     }
-    tarea.inicio = false;
 
     dispatch({
       type: CREAR_TAREA,
@@ -40,8 +47,50 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Obtener tarea por id
+  const obtenerTarea = (id) => {
+    dispatch({
+      type: OBTENER_TAREA,
+      payload: id,
+    });
+  };
+
+  // Actualizar tarea
+  const actualizarTarea = (tarea) => {
+    tarea.estado = "Sin empezar";
+    tarea.inicio = false;
+    switch (tarea.duracion) {
+      case "corta":
+        tarea.tiempo = 30;
+        break;
+      case "media":
+        tarea.tiempo = 45;
+        break;
+      case "larga":
+        tarea.tiempo = 60;
+        break;
+
+      default:
+        tarea.tiempo = tarea.duracion;
+        tarea.duracion = "personalizada";
+        break;
+    }
+    dispatch({
+      type: ACTUALIZAR_TAREA,
+      payload: tarea,
+    });
+  };
+
   return (
-    <TareaContext.Provider value={{ tareas: state.tareas, agregarTarea }}>
+    <TareaContext.Provider
+      value={{
+        tareas: state.tareas,
+        tareaeditada: state.tareaeditada,
+        agregarTarea,
+        obtenerTarea,
+        actualizarTarea,
+      }}
+    >
       {children}
     </TareaContext.Provider>
   );

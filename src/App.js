@@ -5,6 +5,7 @@ import TareaState from "./context/tareaState";
 
 import Home from "./pages/Home";
 import NuevaTarea from "./pages/NuevaTarea";
+import EditarTarea from "./pages/EditarTarea";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/nueva-tarea" component={NuevaTarea} />
+            <Route exact path="/editar-tarea/:id" component={EditarTarea} />
           </Switch>
         </Layout>
       </Router>

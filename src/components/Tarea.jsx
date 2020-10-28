@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const TareaContainer = styled.tr`
   th {
     span,
-    button {
+    button,
+    a {
       padding: 0.5rem;
       border-radius: 1rem;
       cursor: pointer;
@@ -13,16 +15,19 @@ const TareaContainer = styled.tr`
     span {
       background-color: gray;
     }
-    button {
-      border: none;
-      margin-right: 0.5rem;
-      &:last-of-type {
-        margin-right: 0;
+    &.acciones {
+      & .editar,
+      & .eliminar {
+        border: none;
       }
-      &.editar {
+      & .editar {
+        font-size: 1.4rem;
+        margin-right: 0.5rem;
         background-color: green;
+        text-decoration: none;
+        font-weight: 400;
       }
-      &.eliminar {
+      & .eliminar {
         background-color: red;
       }
     }
@@ -33,14 +38,14 @@ const Tarea = ({ tarea }) => {
   return (
     <TareaContainer>
       <th>{tarea.nombre}</th>
-      <th>{tarea.duracion} min.</th>
+      <th>{tarea.tiempo} min.</th>
       <th className="estado">
         <span>{tarea.estado}</span>
       </th>
       <th className="acciones">
-        <button type="button" className="editar">
+        <Link to={`/editar-tarea/${tarea.id}`} className="editar">
           Editar
-        </button>
+        </Link>
         <button type="button" className="eliminar">
           Eliminar
         </button>

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import TareaContext from "../context/tareaContext";
 
-const NuevaTareaContainer = styled.main`
+const EditarTareaContainer = styled.main`
   min-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -60,17 +60,26 @@ const NuevaTareaContainer = styled.main`
   }
 `;
 
-const NuevaTarea = () => {
-  const { agregarTarea } = useContext(TareaContext);
+const EditarTarea = ({
+  match: {
+    params: { id },
+  },
+}) => {
+  const { obtenerTarea, tareaeditada, actualizarTarea } = useContext(
+    TareaContext
+  );
 
   const history = useHistory();
 
-  const [tarea, guardarTarea] = useState({
-    nombre: "",
-    duracion: "",
-  });
+  const [tarea, guardarTarea] = useState(tareaeditada);
   const [error, guardarError] = useState(false);
-  const [horaPersonalizada, guardarHoraPersonalizada] = useState("");
+
+  useEffect(() => {
+    obtenerTarea(id);
+    guardarTarea(tareaeditada);
+  }, [id, tareaeditada]);
+
+  const { nombre, duracion, tiempo } = tarea;
 
   const onChange = (e) => {
     guardarTarea({
@@ -79,37 +88,30 @@ const NuevaTarea = () => {
     });
   };
 
-  const { nombre, duracion } = tarea;
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (
       nombre.trim() === "" ||
       duracion === "" ||
-      (duracion === "personalizada" && horaPersonalizada.trim() === "")
+      (duracion === "personalizada" && tiempo === "")
     ) {
       guardarError("Todos los campos son obligatorios.");
       return;
     }
-    if (
-      duracion === "personalizada" &&
-      (horaPersonalizada < 1 || horaPersonalizada > 120)
-    ) {
+    if (duracion === "personalizada" && (tiempo < 1 || tiempo > 120)) {
       guardarError("El tiempo no puede ser menor a 0 o mayor de 120 minutos");
       return;
     }
-    if (duracion === "personalizada") {
-      tarea.duracion = horaPersonalizada;
-    }
     guardarError(false);
-    agregarTarea(tarea);
-    Swal.fire("¡Tarea creada!", "La tarea fue creada con exito.", "success");
+    actualizarTarea(tarea);
+    Swal.fire("¡Tarea editada!", "La tarea fue editada con exito.", "success");
     history.push("/");
   };
 
   return (
-    <NuevaTareaContainer>
-      <h2>Nueva Tarea</h2>
+    <EditarTareaContainer>
+      <h2>Editar Tarea</h2>
+      <p>Todas las tareas editadas vuelven a estar "Sin empezar"</p>
       <form onSubmit={onSubmit}>
         {error && <p>{error}</p>}
         <div>
@@ -138,15 +140,16 @@ const NuevaTarea = () => {
               type="number"
               step="any"
               placeholder="Coloca la hora en minutos y segundos"
-              value={horaPersonalizada}
-              onChange={(e) => guardarHoraPersonalizada(e.target.value)}
+              name="tiempo"
+              value={tiempo}
+              onChange={onChange}
             />
           </div>
         )}
-        <input className="submit" type="submit" value="Crear tarea" />
+        <input className="submit" type="submit" value="Editar tarea" />
       </form>
-    </NuevaTareaContainer>
+    </EditarTareaContainer>
   );
 };
 
-export default NuevaTarea;
+export default EditarTarea;

@@ -18,11 +18,15 @@ const Home = () => {
   return (
     <HomeContainer>
       <h2>Mis tareas</h2>
-      <p>Da click en el estado de las tareas para empezarlas o completarlas.</p>
       {tareas.length === 0 ? (
         <p>Aún no tienes tareas agregadas, agrega una.</p>
       ) : (
-        <Tareas tareas={tareas} />
+        <>
+          <p>
+            Da click en el estado de las tareas para empezarlas o completarlas.
+          </p>
+          <Tareas tareas={tareas} />
+        </>
       )}
     </HomeContainer>
   );

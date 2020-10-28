@@ -15,7 +15,7 @@ const Tareas = ({ tareas }) => {
       <thead>
         <tr>
           <th>Nombre</th>
-          <th>Duracion</th>
+          <th>Duración</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>
