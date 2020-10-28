@@ -51,6 +51,12 @@ const NuevaTareaContainer = styled.main`
         color: var(--blue);
       }
     }
+    .personalizada {
+      justify-content: center;
+      input {
+        width: 30vw;
+      }
+    }
   }
 `;
 
@@ -64,6 +70,7 @@ const NuevaTarea = () => {
     duracion: "",
   });
   const [error, guardarError] = useState(false);
+  const [horaPersonalizada, guardarHoraPersonalizada] = useState("");
 
   const onChange = (e) => {
     guardarTarea({
@@ -76,9 +83,23 @@ const NuevaTarea = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (nombre.trim() === "" || duracion === "") {
-      guardarError(true);
+    if (
+      nombre.trim() === "" ||
+      duracion === "" ||
+      (duracion === "personalizada" && horaPersonalizada.trim() === "")
+    ) {
+      guardarError("Todos los campos son obligatorios.");
       return;
+    }
+    if (
+      duracion === "personalizada" &&
+      (horaPersonalizada < 1 || horaPersonalizada > 120)
+    ) {
+      guardarError("El tiempo no puede ser menor a 0 o mayor de 120 minutos");
+      return;
+    }
+    if (duracion === "personalizada") {
+      tarea.duracion = horaPersonalizada;
     }
     guardarError(false);
     agregarTarea(tarea);
@@ -90,7 +111,7 @@ const NuevaTarea = () => {
     <NuevaTareaContainer>
       <h2>Nueva Tarea</h2>
       <form onSubmit={onSubmit}>
-        {error && <p>Todos los campos son obligatorios.</p>}
+        {error && <p>{error}</p>}
         <div>
           <label htmlFor="nombre">Nombre</label>
           <input
@@ -108,8 +129,20 @@ const NuevaTarea = () => {
             <option value="corta">30 minutos</option>
             <option value="media">45 minutos</option>
             <option value="larga">1 hora</option>
+            <option value="personalizada">Personalizada</option>
           </select>
         </div>
+        {duracion === "personalizada" && (
+          <div className="personalizada">
+            <input
+              type="number"
+              step="any"
+              placeholder="Coloca la hora en minutos y segundos"
+              name={horaPersonalizada}
+              onChange={(e) => guardarHoraPersonalizada(e.target.value)}
+            />
+          </div>
+        )}
         <input className="submit" type="submit" value="Crear tarea" />
       </form>
     </NuevaTareaContainer>

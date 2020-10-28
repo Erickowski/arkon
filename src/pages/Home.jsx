@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
+
 import TareaContext from "../context/tareaContext";
+
+import Tareas from "../components/Tareas";
 
 const HomeContainer = styled.main`
   min-height: 85vh;
@@ -13,8 +16,10 @@ const Home = () => {
   return (
     <HomeContainer>
       <h2>Mis tareas</h2>
-      {tareas.length === 0 && (
+      {tareas.length === 0 ? (
         <p>Aún no tienes tareas agregadas, agrega una.</p>
+      ) : (
+        <Tareas />
       )}
     </HomeContainer>
   );
