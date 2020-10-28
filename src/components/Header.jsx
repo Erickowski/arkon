@@ -8,7 +8,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100vw;
+  width: 100%;
   margin: 0;
   padding: 1rem;
   background-color: var(--blue);

@@ -8,18 +8,21 @@ import Tareas from "../components/Tareas";
 const HomeContainer = styled.main`
   min-height: 85vh;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Home = () => {
   const { tareas } = useContext(TareaContext);
-  console.log(tareas);
   return (
     <HomeContainer>
       <h2>Mis tareas</h2>
+      <p>Da click en el estado de las tareas para empezarlas o completarlas.</p>
       {tareas.length === 0 ? (
         <p>Aún no tienes tareas agregadas, agrega una.</p>
       ) : (
-        <Tareas />
+        <Tareas tareas={tareas} />
       )}
     </HomeContainer>
   );
