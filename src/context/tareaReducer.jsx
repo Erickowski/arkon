@@ -1,4 +1,5 @@
 import {
+  ACTUALIZAR_ESTADO,
   ACTUALIZAR_TAREA,
   CREAR_TAREA,
   ELIMINAR_TAREA,
@@ -27,6 +28,13 @@ export default function (state, action) {
           duracion: "",
           tiempo: "",
         },
+        tareas: state.tareas.map((tarea) =>
+          tarea.id === action.payload.id ? (tarea = action.payload) : tarea
+        ),
+      };
+    case ACTUALIZAR_ESTADO:
+      return {
+        ...state,
         tareas: state.tareas.map((tarea) =>
           tarea.id === action.payload.id ? (tarea = action.payload) : tarea
         ),

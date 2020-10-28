@@ -18,6 +18,15 @@ const TareaContainer = styled.tr`
     span {
       background-color: gray;
     }
+    &.estado {
+      span,
+      i {
+        margin-right: 1rem;
+      }
+      i:last-of-type {
+        margin-right: 0;
+      }
+    }
     &.acciones {
       & .editar,
       & .eliminar {
@@ -38,7 +47,7 @@ const TareaContainer = styled.tr`
 `;
 
 const Tarea = ({ tarea }) => {
-  const { eliminarTarea } = useContext(TareaContext);
+  const { eliminarTarea, cambiarEstado } = useContext(TareaContext);
 
   const handleDelete = () => {
     Swal.fire({
@@ -62,12 +71,28 @@ const Tarea = ({ tarea }) => {
     });
   };
 
+  const handleState = () => {
+    if (tarea.estado === "Sin empezar") {
+      cambiarEstado({ ...tarea, estado: "En curso" });
+    }
+    if (tarea.estado === "En curso") {
+      cambiarEstado({ ...tarea, estado: "Terminada" });
+    }
+  };
+
   return (
     <TareaContainer>
       <th>{tarea.nombre}</th>
       <th>{tarea.tiempo} min.</th>
       <th className="estado">
-        <span>{tarea.estado}</span>
+        <span onClick={() => handleState()}>{tarea.estado}</span>
+        {tarea.estado === "En curso" && (
+          <>
+            <i className="far fa-pause-circle"></i>
+            <i className="far fa-play-circle"></i>
+            <i className="fas fa-redo"></i>
+          </>
+        )}
       </th>
       <th className="acciones">
         <Link to={`/editar-tarea/${tarea.id}`} className="editar">

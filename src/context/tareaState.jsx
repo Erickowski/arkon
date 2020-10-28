@@ -9,6 +9,7 @@ import {
   CREAR_TAREA,
   ELIMINAR_TAREA,
   OBTENER_TAREA,
+  ACTUALIZAR_ESTADO,
 } from "../types";
 
 const TareaState = ({ children }) => {
@@ -94,6 +95,14 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Cambiar estado de la tarea
+  const cambiarEstado = (tarea) => {
+    dispatch({
+      type: ACTUALIZAR_ESTADO,
+      payload: tarea,
+    });
+  };
+
   return (
     <TareaContext.Provider
       value={{
@@ -103,6 +112,7 @@ const TareaState = ({ children }) => {
         obtenerTarea,
         actualizarTarea,
         eliminarTarea,
+        cambiarEstado,
       }}
     >
       {children}

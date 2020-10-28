@@ -21,9 +21,11 @@ const Tareas = ({ tareas }) => {
         </tr>
       </thead>
       <tbody>
-        {tareas.map((tarea) => (
-          <Tarea key={tarea.id} tarea={tarea} />
-        ))}
+        {tareas
+          .sort((a, b) => a.estado.charCodeAt() - b.estado.charCodeAt())
+          .map((tarea) => (
+            <Tarea key={tarea.id} tarea={tarea} />
+          ))}
       </tbody>
     </TareasContainer>
   );
