@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 import TareaContext from "../context/tareaContext";
 
@@ -22,6 +23,7 @@ const TareaContainer = styled.tr`
       span,
       i {
         margin-right: 1rem;
+        cursor: pointer;
       }
       i:last-of-type {
         margin-right: 0;
@@ -47,7 +49,9 @@ const TareaContainer = styled.tr`
 `;
 
 const Tarea = ({ tarea }) => {
-  const { eliminarTarea, cambiarEstado } = useContext(TareaContext);
+  const { eliminarTarea, cambiarEstado, pausarTarea } = useContext(
+    TareaContext
+  );
 
   const handleDelete = () => {
     Swal.fire({
@@ -72,24 +76,44 @@ const Tarea = ({ tarea }) => {
   };
 
   const handleState = () => {
-    if (tarea.estado === "Sin empezar") {
-      cambiarEstado({ ...tarea, estado: "En curso" });
+    if (tarea.estado === "Sin empezar" || tarea.estado === "Pausada") {
+      cambiarEstado({
+        ...tarea,
+        estado: "En curso",
+        inicio: new Date(),
+      });
     }
     if (tarea.estado === "En curso") {
       cambiarEstado({ ...tarea, estado: "Terminada" });
     }
   };
 
+  const handlePause = () => {
+    pausarTarea({
+      ...tarea,
+      acumulador: (Date.now() - tarea.inicio) / 1000,
+      inicio: false,
+    });
+  };
+
   return (
     <TareaContainer>
       <th>{tarea.nombre}</th>
       <th>{tarea.tiempo} min.</th>
+      <th>
+        {tarea.estado === "Sin empezar" && "No iniciada"}
+        {tarea.estado === "En curso" &&
+          moment(tarea.inicio).from(Date.now() + tarea.acumulador)}
+        {tarea.estado === "Pausada" &&
+          tarea.acumulador.toFixed(0) + " segundos"}
+      </th>
       <th className="estado">
         <span onClick={() => handleState()}>{tarea.estado}</span>
         {tarea.estado === "En curso" && (
           <>
-            <i className="far fa-pause-circle"></i>
-            <i className="far fa-play-circle"></i>
+            {tarea.inicio && (
+              <i className="far fa-pause-circle" onClick={handlePause}></i>
+            )}
             <i className="fas fa-redo"></i>
           </>
         )}

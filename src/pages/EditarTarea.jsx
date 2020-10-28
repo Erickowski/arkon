@@ -77,6 +77,7 @@ const EditarTarea = ({
   useEffect(() => {
     obtenerTarea(id);
     guardarTarea(tareaeditada);
+    // eslint-disable-next-line
   }, [id, tareaeditada]);
 
   const { nombre, duracion, tiempo } = tarea;

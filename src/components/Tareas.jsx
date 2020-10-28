@@ -16,6 +16,7 @@ const Tareas = ({ tareas }) => {
         <tr>
           <th>Nombre</th>
           <th>Duración</th>
+          <th>Tiempo completado</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>

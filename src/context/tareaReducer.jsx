@@ -4,8 +4,10 @@ import {
   CREAR_TAREA,
   ELIMINAR_TAREA,
   OBTENER_TAREA,
+  PAUSAR_TAREA,
 } from "../types";
 
+// eslint-disable-next-line
 export default function (state, action) {
   switch (action.type) {
     case CREAR_TAREA:
@@ -33,6 +35,7 @@ export default function (state, action) {
         ),
       };
     case ACTUALIZAR_ESTADO:
+    case PAUSAR_TAREA:
       return {
         ...state,
         tareas: state.tareas.map((tarea) =>

@@ -10,6 +10,7 @@ import {
   ELIMINAR_TAREA,
   OBTENER_TAREA,
   ACTUALIZAR_ESTADO,
+  PAUSAR_TAREA,
 } from "../types";
 
 const TareaState = ({ children }) => {
@@ -30,6 +31,7 @@ const TareaState = ({ children }) => {
     tarea.id = shortid.generate();
     tarea.estado = "Sin empezar";
     tarea.inicio = false;
+    tarea.acumulador = 0;
     switch (tarea.duracion) {
       case "corta":
         tarea.tiempo = 30;
@@ -103,6 +105,15 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Pausar la tarea
+  const pausarTarea = (tarea) => {
+    tarea.estado = "Pausada";
+    dispatch({
+      type: PAUSAR_TAREA,
+      payload: tarea,
+    });
+  };
+
   return (
     <TareaContext.Provider
       value={{
@@ -113,6 +124,7 @@ const TareaState = ({ children }) => {
         actualizarTarea,
         eliminarTarea,
         cambiarEstado,
+        pausarTarea,
       }}
     >
       {children}

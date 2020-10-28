@@ -48,7 +48,11 @@ const Header = () => {
           <li>
             <Link to="/nueva-tarea">Nueva tarea</Link>
           </li>
-          <li>Historial de tareas completadas</li>
+          <li>
+            <Link to="/tareas-completadas">
+              Historial de tareas completadas
+            </Link>
+          </li>
           <li>Prellenar tareas</li>
         </ul>
       </nav>
