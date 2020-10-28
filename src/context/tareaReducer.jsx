@@ -1,4 +1,9 @@
-import { ACTUALIZAR_TAREA, CREAR_TAREA, OBTENER_TAREA } from "../types";
+import {
+  ACTUALIZAR_TAREA,
+  CREAR_TAREA,
+  ELIMINAR_TAREA,
+  OBTENER_TAREA,
+} from "../types";
 
 export default function (state, action) {
   switch (action.type) {
@@ -25,6 +30,11 @@ export default function (state, action) {
         tareas: state.tareas.map((tarea) =>
           tarea.id === action.payload.id ? (tarea = action.payload) : tarea
         ),
+      };
+    case ELIMINAR_TAREA:
+      return {
+        ...state,
+        tareas: state.tareas.filter((tarea) => tarea.id !== action.payload),
       };
     default:
       return state;

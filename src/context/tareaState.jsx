@@ -4,7 +4,12 @@ import shortid from "shortid";
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
 
-import { ACTUALIZAR_TAREA, CREAR_TAREA, OBTENER_TAREA } from "../types";
+import {
+  ACTUALIZAR_TAREA,
+  CREAR_TAREA,
+  ELIMINAR_TAREA,
+  OBTENER_TAREA,
+} from "../types";
 
 const TareaState = ({ children }) => {
   const initialState = {
@@ -81,6 +86,14 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Eliminar tarea por id
+  const eliminarTarea = (id) => {
+    dispatch({
+      type: ELIMINAR_TAREA,
+      payload: id,
+    });
+  };
+
   return (
     <TareaContext.Provider
       value={{
@@ -89,6 +102,7 @@ const TareaState = ({ children }) => {
         agregarTarea,
         obtenerTarea,
         actualizarTarea,
+        eliminarTarea,
       }}
     >
       {children}

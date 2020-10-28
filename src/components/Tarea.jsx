@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import TareaContext from "../context/tareaContext";
 
 const TareaContainer = styled.tr`
   th {
@@ -35,6 +38,30 @@ const TareaContainer = styled.tr`
 `;
 
 const Tarea = ({ tarea }) => {
+  const { eliminarTarea } = useContext(TareaContext);
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡Una tarea eliminada no se puede recuperar!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, eliminalo!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarTarea(tarea.id);
+        Swal.fire(
+          "¡Tarea eliminada!",
+          "Tu tarea ha sido eliminada.",
+          "success"
+        );
+      }
+    });
+  };
+
   return (
     <TareaContainer>
       <th>{tarea.nombre}</th>
@@ -46,7 +73,11 @@ const Tarea = ({ tarea }) => {
         <Link to={`/editar-tarea/${tarea.id}`} className="editar">
           Editar
         </Link>
-        <button type="button" className="eliminar">
+        <button
+          type="button"
+          onClick={() => handleDelete()}
+          className="eliminar"
+        >
           Eliminar
         </button>
       </th>
