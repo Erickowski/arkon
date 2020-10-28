@@ -11,6 +11,7 @@ import {
   OBTENER_TAREA,
   ACTUALIZAR_ESTADO,
   PAUSAR_TAREA,
+  REINICIAR_TAREA,
 } from "../types";
 
 const TareaState = ({ children }) => {
@@ -108,8 +109,20 @@ const TareaState = ({ children }) => {
   // Pausar la tarea
   const pausarTarea = (tarea) => {
     tarea.estado = "Pausada";
+    tarea.inicio = null;
     dispatch({
       type: PAUSAR_TAREA,
+      payload: tarea,
+    });
+  };
+
+  // Reiniciar la tarea
+  const reiniciarTarea = (tarea) => {
+    tarea.inicio = null;
+    tarea.estado = "Sin empezar";
+    tarea.acumulador = 0;
+    dispatch({
+      type: REINICIAR_TAREA,
       payload: tarea,
     });
   };
@@ -125,6 +138,7 @@ const TareaState = ({ children }) => {
         eliminarTarea,
         cambiarEstado,
         pausarTarea,
+        reiniciarTarea,
       }}
     >
       {children}

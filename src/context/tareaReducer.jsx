@@ -5,6 +5,7 @@ import {
   ELIMINAR_TAREA,
   OBTENER_TAREA,
   PAUSAR_TAREA,
+  REINICIAR_TAREA,
 } from "../types";
 
 // eslint-disable-next-line
@@ -36,6 +37,7 @@ export default function (state, action) {
       };
     case ACTUALIZAR_ESTADO:
     case PAUSAR_TAREA:
+    case REINICIAR_TAREA:
       return {
         ...state,
         tareas: state.tareas.map((tarea) =>

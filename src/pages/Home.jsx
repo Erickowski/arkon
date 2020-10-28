@@ -11,6 +11,9 @@ const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    margin: 1rem 0;
+  }
 `;
 
 const Home = () => {
@@ -25,6 +28,7 @@ const Home = () => {
           <p>
             Da click en el estado de las tareas para empezarlas o completarlas.
           </p>
+          <p>Pausar la tarea o reinicia el avance con los iconos.</p>
           <Tareas tareas={tareas} />
         </>
       )}

@@ -17,7 +17,11 @@ const TareaContainer = styled.tr`
       color: var(--white);
     }
     span {
-      background-color: gray;
+      background-color: ${(props) => props.estado === "Sin empezar" && "gray"};
+      background-color: ${(props) => props.estado === "En curso" && "green"};
+      background-color: ${(props) => props.estado === "Pausada" && "red"};
+      background-color: ${(props) =>
+        props.estado === "Terminada" && "var(--blue)"};
     }
     &.estado {
       span,
@@ -49,9 +53,12 @@ const TareaContainer = styled.tr`
 `;
 
 const Tarea = ({ tarea }) => {
-  const { eliminarTarea, cambiarEstado, pausarTarea } = useContext(
-    TareaContext
-  );
+  const {
+    eliminarTarea,
+    cambiarEstado,
+    pausarTarea,
+    reiniciarTarea,
+  } = useContext(TareaContext);
 
   const handleDelete = () => {
     Swal.fire({
@@ -84,28 +91,38 @@ const Tarea = ({ tarea }) => {
       });
     }
     if (tarea.estado === "En curso") {
-      cambiarEstado({ ...tarea, estado: "Terminada" });
+      cambiarEstado({
+        ...tarea,
+        estado: "Terminada",
+        inicio: null,
+        acumulador: tarea.acumulador + (Date.now() - tarea.inicio),
+      });
     }
   };
 
   const handlePause = () => {
     pausarTarea({
       ...tarea,
-      acumulador: (Date.now() - tarea.inicio) / 1000,
-      inicio: false,
+      acumulador: tarea.acumulador + (Date.now() - tarea.inicio),
     });
   };
 
+  const convertMs = (miliseconds) => {
+    const hours = Math.floor(miliseconds / 3600000);
+    const minutes = Math.floor((miliseconds % 3600000) / 60000);
+    const seconds = Math.floor(((miliseconds % 360000) % 60000) / 1000);
+    return `${hours}:${minutes}:${seconds}`;
+  };
+
   return (
-    <TareaContainer>
+    <TareaContainer estado={tarea.estado}>
       <th>{tarea.nombre}</th>
       <th>{tarea.tiempo} min.</th>
       <th>
         {tarea.estado === "Sin empezar" && "No iniciada"}
         {tarea.estado === "En curso" &&
           moment(tarea.inicio).from(Date.now() + tarea.acumulador)}
-        {tarea.estado === "Pausada" &&
-          tarea.acumulador.toFixed(0) + " segundos"}
+        {tarea.estado === "Pausada" && convertMs(tarea.acumulador) + " (h:m:s)"}
       </th>
       <th className="estado">
         <span onClick={() => handleState()}>{tarea.estado}</span>
@@ -114,7 +131,10 @@ const Tarea = ({ tarea }) => {
             {tarea.inicio && (
               <i className="far fa-pause-circle" onClick={handlePause}></i>
             )}
-            <i className="fas fa-redo"></i>
+            <i
+              className="fas fa-redo"
+              onClick={() => reiniciarTarea(tarea)}
+            ></i>
           </>
         )}
       </th>
