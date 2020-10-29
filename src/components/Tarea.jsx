@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -58,6 +58,7 @@ const Tarea = ({ tarea }) => {
     cambiarEstado,
     pausarTarea,
     reiniciarTarea,
+    completarTarea,
   } = useContext(TareaContext);
 
   const handleDelete = () => {
@@ -111,8 +112,20 @@ const Tarea = ({ tarea }) => {
     const hours = Math.floor(miliseconds / 3600000);
     const minutes = Math.floor((miliseconds % 3600000) / 60000);
     const seconds = Math.floor(((miliseconds % 360000) % 60000) / 1000);
-    return `${hours}:${minutes}:${seconds}`;
+    return { clock: `${hours}:${minutes}:${seconds}`, hours, minutes };
   };
+
+  useEffect(() => {
+    if (tarea.estado === "En curso") {
+      const horaactual = new Date();
+      const horainicial = new Date(tarea.inicio);
+      const tiempotranscurrido =
+        (horaactual - horainicial + tarea.acumulador) / 1000;
+      if (tiempotranscurrido >= tarea.tiempo * 60) {
+        completarTarea(tarea);
+      }
+    }
+  }, []);
 
   return (
     <TareaContainer estado={tarea.estado}>
@@ -122,7 +135,8 @@ const Tarea = ({ tarea }) => {
         {tarea.estado === "Sin empezar" && "No iniciada"}
         {tarea.estado === "En curso" &&
           moment(tarea.inicio).from(Date.now() + tarea.acumulador)}
-        {tarea.estado === "Pausada" && convertMs(tarea.acumulador) + " (h:m:s)"}
+        {(tarea.estado === "Pausada" || tarea.estado === "Terminada") &&
+          convertMs(tarea.acumulador).clock + " (h:m:s)"}
       </th>
       <th className="estado">
         <span onClick={() => handleState()}>{tarea.estado}</span>

@@ -95,7 +95,9 @@ const NuevaTarea = () => {
       duracion === "personalizada" &&
       (horaPersonalizada < 1 || horaPersonalizada > 120)
     ) {
-      guardarError("El tiempo no puede ser menor a 0 o mayor de 120 minutos");
+      guardarError(
+        "El tiempo no puede ser menor a 0 o mayor de 120 minutos ni decimal"
+      );
       return;
     }
     if (duracion === "personalizada") {
@@ -136,8 +138,7 @@ const NuevaTarea = () => {
           <div className="personalizada">
             <input
               type="number"
-              step="any"
-              placeholder="Coloca la hora en minutos y segundos"
+              placeholder="Coloca la hora en minutos"
               value={horaPersonalizada}
               onChange={(e) => guardarHoraPersonalizada(e.target.value)}
             />

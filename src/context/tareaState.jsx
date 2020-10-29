@@ -12,6 +12,7 @@ import {
   ACTUALIZAR_ESTADO,
   PAUSAR_TAREA,
   REINICIAR_TAREA,
+  COMPLETAR_TAREA,
 } from "../types";
 
 const TareaState = ({ children }) => {
@@ -45,7 +46,7 @@ const TareaState = ({ children }) => {
         break;
 
       default:
-        tarea.tiempo = tarea.duracion;
+        tarea.tiempo = Math.round(tarea.duracion);
         tarea.duracion = "personalizada";
         break;
     }
@@ -80,7 +81,7 @@ const TareaState = ({ children }) => {
         break;
 
       default:
-        tarea.tiempo = tarea.duracion;
+        tarea.tiempo = tarea.tiempo;
         tarea.duracion = "personalizada";
         break;
     }
@@ -127,6 +128,16 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Tarea completada
+  const completarTarea = (tarea) => {
+    tarea.estado = "Terminada";
+    tarea.acumulador = tarea.tiempo * 60000;
+    dispatch({
+      type: COMPLETAR_TAREA,
+      payload: tarea,
+    });
+  };
+
   return (
     <TareaContext.Provider
       value={{
@@ -139,6 +150,7 @@ const TareaState = ({ children }) => {
         cambiarEstado,
         pausarTarea,
         reiniciarTarea,
+        completarTarea,
       }}
     >
       {children}
