@@ -165,6 +165,8 @@ const TareaState = ({ children }) => {
         case 3:
           tiempo = Math.round(Math.random() * 121);
           break;
+        default:
+          break;
       }
       randomTareas.push({
         id: shortid.generate(),
