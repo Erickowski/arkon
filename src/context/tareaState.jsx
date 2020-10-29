@@ -3,6 +3,7 @@ import shortid from "shortid";
 
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
+import Axios from "axios";
 
 import {
   ACTUALIZAR_TAREA,
@@ -14,6 +15,7 @@ import {
   REINICIAR_TAREA,
   COMPLETAR_TAREA,
   GENERAR_TAREAS,
+  OBTENER_TAREAS,
 } from "../types";
 
 import UseWeek from "../hooks/useWeek";
@@ -32,7 +34,7 @@ const TareaState = ({ children }) => {
 
   // Funciones
   // Agregar tarea
-  const agregarTarea = (tarea) => {
+  const agregarTarea = async (tarea) => {
     tarea.id = shortid.generate();
     tarea.estado = "Sin empezar";
     tarea.inicio = false;
@@ -54,10 +56,28 @@ const TareaState = ({ children }) => {
         break;
     }
 
-    dispatch({
-      type: CREAR_TAREA,
-      payload: tarea,
-    });
+    try {
+      await Axios.post("http://localhost:4000/tareas", tarea);
+      dispatch({
+        type: CREAR_TAREA,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Obtener tareas
+  const obtenerTareas = async () => {
+    try {
+      const tareas = await Axios.get("http://localhost:4000/tareas");
+      dispatch({
+        type: OBTENER_TAREAS,
+        payload: tareas.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Obtener tarea por id
@@ -69,7 +89,7 @@ const TareaState = ({ children }) => {
   };
 
   // Actualizar tarea
-  const actualizarTarea = (tarea) => {
+  const actualizarTarea = async (tarea) => {
     tarea.estado = "Sin empezar";
     tarea.inicio = false;
     switch (tarea.duracion) {
@@ -87,61 +107,91 @@ const TareaState = ({ children }) => {
         tarea.duracion = "personalizada";
         break;
     }
-    dispatch({
-      type: ACTUALIZAR_TAREA,
-      payload: tarea,
-    });
+    try {
+      await Axios.put(`http://localhost:4000/tareas/${tarea.id}`, tarea);
+      dispatch({
+        type: ACTUALIZAR_TAREA,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Eliminar tarea por id
-  const eliminarTarea = (id) => {
-    dispatch({
-      type: ELIMINAR_TAREA,
-      payload: id,
-    });
+  const eliminarTarea = async (id) => {
+    try {
+      await Axios.delete(`http://localhost:4000/tareas/${id}`);
+      dispatch({
+        type: ELIMINAR_TAREA,
+        payload: id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Cambiar estado de la tarea
-  const cambiarEstado = (tarea) => {
-    dispatch({
-      type: ACTUALIZAR_ESTADO,
-      payload: tarea,
-    });
+  const cambiarEstado = async (tarea) => {
+    try {
+      await Axios.put(`http://localhost:4000/tareas/${tarea.id}`, tarea);
+      dispatch({
+        type: ACTUALIZAR_ESTADO,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Pausar la tarea
-  const pausarTarea = (tarea) => {
+  const pausarTarea = async (tarea) => {
     tarea.estado = "Pausada";
     tarea.inicio = null;
-    dispatch({
-      type: PAUSAR_TAREA,
-      payload: tarea,
-    });
+    try {
+      await Axios.put(`http://localhost:4000/tareas/${tarea.id}`, tarea);
+      dispatch({
+        type: PAUSAR_TAREA,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Reiniciar la tarea
-  const reiniciarTarea = (tarea) => {
+  const reiniciarTarea = async (tarea) => {
     tarea.inicio = null;
     tarea.estado = "Sin empezar";
     tarea.acumulador = 0;
-    dispatch({
-      type: REINICIAR_TAREA,
-      payload: tarea,
-    });
+    try {
+      await Axios.put(`http://localhost:4000/tareas/${tarea.id}`, tarea);
+      dispatch({
+        type: REINICIAR_TAREA,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Tarea completada
-  const completarTarea = (tarea) => {
+  const completarTarea = async (tarea) => {
     tarea.estado = "Terminada";
     tarea.acumulador = tarea.tiempo * 60000;
-    dispatch({
-      type: COMPLETAR_TAREA,
-      payload: tarea,
-    });
+    try {
+      await Axios.put(`http://localhost:4000/tareas/${tarea.id}`, tarea);
+      dispatch({
+        type: COMPLETAR_TAREA,
+        payload: tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Generar tareas aleatorias
-  const generarTareas = () => {
+  const generarTareas = async () => {
     const actualDays = UseWeek(Date.now());
     let randomTareas = [];
     let estado = ["Sin empezar", "Terminada"];
@@ -179,10 +229,15 @@ const TareaState = ({ children }) => {
           estadoTarea === 0 ? null : actualDays[Math.round(Math.random() * 6)],
       });
     }
-    dispatch({
-      type: GENERAR_TAREAS,
-      payload: randomTareas,
-    });
+    try {
+      await Axios.post("http://localhost:4000/tareas", randomTareas);
+      dispatch({
+        type: GENERAR_TAREAS,
+        payload: randomTareas,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -199,6 +254,7 @@ const TareaState = ({ children }) => {
         reiniciarTarea,
         completarTarea,
         generarTareas,
+        obtenerTareas,
       }}
     >
       {children}

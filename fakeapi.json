@@ -1,12 +1,456 @@
 {
   "tareas": [
-    {
-      "id": 1,
-      "nombre": "Tarea 1",
-      "duracion": "1 hora",
-      "estado": 0,
-      "horainicio": "9:45am",
-      "diainicio": "03/08/1995"
-    }
+    [
+      {
+        "id": "uqQNhtXBb",
+        "nombre": "Tarea 1",
+        "estado": "Sin empezar",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "U3vxOoBwgW",
+        "nombre": "Tarea 2",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "WRxVTy2UeK",
+        "nombre": "Tarea 3",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "WupYPpcyha",
+        "nombre": "Tarea 4",
+        "estado": "Terminada",
+        "duracion": "personalizada",
+        "tiempo": 120,
+        "acumulador": 7200000,
+        "inicio": "2020-10-28T00:00:00-06:00"
+      },
+      {
+        "id": "ZEpioPX8-Y",
+        "nombre": "Tarea 5",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "X_23mWHY0F",
+        "nombre": "Tarea 6",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "g3QOwe1sRR",
+        "nombre": "Tarea 7",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "gUaobkW4ZV",
+        "nombre": "Tarea 8",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-31T00:00:00-06:00"
+      },
+      {
+        "id": "t_4Gtb9AUk",
+        "nombre": "Tarea 9",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "5Md5E8X1BB",
+        "nombre": "Tarea 10",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "8Gbbq6nkMU",
+        "nombre": "Tarea 11",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-26T00:00:00-06:00"
+      },
+      {
+        "id": "BlnQQRfTaM",
+        "nombre": "Tarea 12",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-11-01T00:00:00-06:00"
+      },
+      {
+        "id": "btcGDii8z3",
+        "nombre": "Tarea 13",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "EIgo10DHFo",
+        "nombre": "Tarea 14",
+        "estado": "Terminada",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 1800000,
+        "inicio": "2020-11-01T00:00:00-06:00"
+      },
+      {
+        "id": "VId7_00n9H",
+        "nombre": "Tarea 15",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-11-01T00:00:00-06:00"
+      },
+      {
+        "id": "HF3E9xmaGj",
+        "nombre": "Tarea 16",
+        "estado": "Terminada",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 1800000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "eI-tvpthAi7",
+        "nombre": "Tarea 17",
+        "estado": "Sin empezar",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "h5rlNr1P_xj",
+        "nombre": "Tarea 18",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "mlCRPcKO3yN",
+        "nombre": "Tarea 19",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-29T00:00:00-06:00"
+      },
+      {
+        "id": "Rjtq5QI_jo3",
+        "nombre": "Tarea 20",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-28T00:00:00-06:00"
+      },
+      {
+        "id": "Q6XZjrGmBXX",
+        "nombre": "Tarea 21",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "HkriAV5eedP",
+        "nombre": "Tarea 22",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-26T00:00:00-06:00"
+      },
+      {
+        "id": "B1zR5e1UCbV",
+        "nombre": "Tarea 23",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "hsTGM2CSIhd",
+        "nombre": "Tarea 24",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "X65YrwuIYLS",
+        "nombre": "Tarea 25",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "DQy12bdTqz8",
+        "nombre": "Tarea 26",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-27T00:00:00-06:00"
+      },
+      {
+        "id": "b7rmkpz1DL2",
+        "nombre": "Tarea 27",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-27T00:00:00-06:00"
+      },
+      {
+        "id": "zpXix6_K2tm",
+        "nombre": "Tarea 28",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "T7jkW4D7EuV",
+        "nombre": "Tarea 29",
+        "estado": "Terminada",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 1800000,
+        "inicio": "2020-10-28T00:00:00-06:00"
+      },
+      {
+        "id": "B7ldVfSNgnp",
+        "nombre": "Tarea 30",
+        "estado": "Terminada",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 1800000,
+        "inicio": "2020-10-29T00:00:00-06:00"
+      },
+      {
+        "id": "5B-3Q4lByfQ",
+        "nombre": "Tarea 31",
+        "estado": "Sin empezar",
+        "duracion": "personalizada",
+        "tiempo": 109,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "KWHEVQFpC0h",
+        "nombre": "Tarea 32",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "NxspoZV0rBg",
+        "nombre": "Tarea 33",
+        "estado": "Sin empezar",
+        "duracion": "personalizada",
+        "tiempo": 69,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "zwlGLYhwN7F",
+        "nombre": "Tarea 34",
+        "estado": "Terminada",
+        "duracion": "personalizada",
+        "tiempo": 76,
+        "acumulador": 4560000,
+        "inicio": "2020-10-27T00:00:00-06:00"
+      },
+      {
+        "id": "6__Yji2R4LC",
+        "nombre": "Tarea 35",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-28T00:00:00-06:00"
+      },
+      {
+        "id": "BK3PhCg7i4g",
+        "nombre": "Tarea 36",
+        "estado": "Sin empezar",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "Ds0TQHyLxUN",
+        "nombre": "Tarea 37",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "rRHgh_gSwZ8",
+        "nombre": "Tarea 38",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-31T00:00:00-06:00"
+      },
+      {
+        "id": "SG6VGAtS5rm",
+        "nombre": "Tarea 39",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "EY5YttmWPo_",
+        "nombre": "Tarea 40",
+        "estado": "Terminada",
+        "duracion": "personalizada",
+        "tiempo": 11,
+        "acumulador": 660000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "KmCWUDae_iH",
+        "nombre": "Tarea 41",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-26T00:00:00-06:00"
+      },
+      {
+        "id": "hNpQYnSYGz5",
+        "nombre": "Tarea 42",
+        "estado": "Terminada",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 2700000,
+        "inicio": "2020-10-30T00:00:00-06:00"
+      },
+      {
+        "id": "DCoXOFSXoDf",
+        "nombre": "Tarea 43",
+        "estado": "Terminada",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 3600000,
+        "inicio": "2020-10-28T00:00:00-06:00"
+      },
+      {
+        "id": "ihMiUXAQY71",
+        "nombre": "Tarea 44",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "xP6K5NAfo0Q",
+        "nombre": "Tarea 45",
+        "estado": "Sin empezar",
+        "duracion": "personalizada",
+        "tiempo": 74,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "vbs4ipKM4EH",
+        "nombre": "Tarea 46",
+        "estado": "Terminada",
+        "duracion": "personalizada",
+        "tiempo": 56,
+        "acumulador": 3360000,
+        "inicio": "2020-10-29T00:00:00-06:00"
+      },
+      {
+        "id": "iEEnNWa1VXu",
+        "nombre": "Tarea 47",
+        "estado": "Sin empezar",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "MRoSNzJSU-6",
+        "nombre": "Tarea 48",
+        "estado": "Sin empezar",
+        "duracion": "media",
+        "tiempo": 45,
+        "acumulador": 0,
+        "inicio": null
+      },
+      {
+        "id": "L2eHWhO9AUk",
+        "nombre": "Tarea 49",
+        "estado": "Terminada",
+        "duracion": "corta",
+        "tiempo": 30,
+        "acumulador": 1800000,
+        "inicio": "2020-10-31T00:00:00-06:00"
+      },
+      {
+        "id": "BZWaiiCOH5H",
+        "nombre": "Tarea 50",
+        "estado": "Sin empezar",
+        "duracion": "larga",
+        "tiempo": 60,
+        "acumulador": 0,
+        "inicio": null
+      }
+    ]
   ]
 }

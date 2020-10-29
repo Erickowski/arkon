@@ -38,7 +38,7 @@ const HomeContainer = styled.main`
 `;
 
 const Home = () => {
-  const { tareas } = useContext(TareaContext);
+  const { tareas, obtenerTareas } = useContext(TareaContext);
 
   const [tareasTotal, guardarTareasTotal] = useState([]);
   const [filtro, guardarFiltro] = useState("");
@@ -80,14 +80,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    guardarTareasTotal(tareas);
+    obtenerTareas();
     handleOrden();
-  }, [tareas]);
+  }, []);
 
   return (
     <HomeContainer>
       <h2>Mis tareas</h2>
-      {tareasTotal.length === 0 ? (
+      {tareas.length === 0 ? (
         <p>Aún no tienes tareas agregadas, agrega una.</p>
       ) : (
         <>
@@ -126,7 +126,7 @@ const Home = () => {
               {filtro.trim() === "" ? "Reiniciar filtro" : "Filtrar"}
             </button>
           </div>
-          <Tareas tareas={tareasTotal} />
+          <Tareas tareas={tareas} />
         </>
       )}
     </HomeContainer>
