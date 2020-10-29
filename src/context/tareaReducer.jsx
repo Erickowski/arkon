@@ -7,6 +7,7 @@ import {
   PAUSAR_TAREA,
   REINICIAR_TAREA,
   COMPLETAR_TAREA,
+  GENERAR_TAREAS,
 } from "../types";
 
 // eslint-disable-next-line
@@ -50,6 +51,11 @@ export default function (state, action) {
       return {
         ...state,
         tareas: state.tareas.filter((tarea) => tarea.id !== action.payload),
+      };
+    case GENERAR_TAREAS:
+      return {
+        ...state,
+        tareas: action.payload,
       };
     default:
       return state;

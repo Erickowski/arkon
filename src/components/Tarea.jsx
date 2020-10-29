@@ -125,6 +125,7 @@ const Tarea = ({ tarea }) => {
         completarTarea(tarea);
       }
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

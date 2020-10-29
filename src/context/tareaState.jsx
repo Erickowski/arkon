@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import shortid from "shortid";
+import moment from "moment";
 
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
@@ -13,6 +14,7 @@ import {
   PAUSAR_TAREA,
   REINICIAR_TAREA,
   COMPLETAR_TAREA,
+  GENERAR_TAREAS,
 } from "../types";
 
 const TareaState = ({ children }) => {
@@ -81,7 +83,6 @@ const TareaState = ({ children }) => {
         break;
 
       default:
-        tarea.tiempo = tarea.tiempo;
         tarea.duracion = "personalizada";
         break;
     }
@@ -138,6 +139,56 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // Generar tareas aleatorias
+  const generarTareas = () => {
+    const actualDays = [];
+    const startOfPeriod = moment(Date.now()),
+      begin = moment(startOfPeriod).isoWeekday(1);
+    begin.startOf("isoWeek");
+    for (let i = 0; i < 7; i++) {
+      actualDays.push(begin.format());
+      begin.add("d", 1);
+    }
+    let randomTareas = [];
+    let estado = ["Sin empezar", "Terminada"];
+    let duracion = ["corta", "media", "larga", "personalizada"];
+
+    for (let index = 0; index < 50; index++) {
+      let nombre = "Tarea " + (index + 1);
+      let estadoTarea = Math.round(Math.random() * 1);
+      let duracionTarea = Math.round(Math.random() * 3);
+      let tiempo;
+      switch (duracionTarea) {
+        case 0:
+          tiempo = 30;
+          break;
+        case 1:
+          tiempo = 45;
+          break;
+        case 2:
+          tiempo = 60;
+          break;
+        case 3:
+          tiempo = Math.round(Math.random() * 121);
+          break;
+      }
+      randomTareas.push({
+        id: shortid.generate(),
+        nombre,
+        estado: estado[estadoTarea],
+        duracion: duracion[duracionTarea],
+        tiempo,
+        acumulador: estadoTarea === 0 ? 0 : tiempo * 60000,
+        inicio:
+          estadoTarea === 0 ? null : actualDays[Math.round(Math.random() * 6)],
+      });
+    }
+    dispatch({
+      type: GENERAR_TAREAS,
+      payload: randomTareas,
+    });
+  };
+
   return (
     <TareaContext.Provider
       value={{
@@ -151,6 +202,7 @@ const TareaState = ({ children }) => {
         pausarTarea,
         reiniciarTarea,
         completarTarea,
+        generarTareas,
       }}
     >
       {children}

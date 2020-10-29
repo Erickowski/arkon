@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+
+import TareaContext from "../context/tareaContext";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -32,9 +34,13 @@ const HeaderContainer = styled.header`
       }
     }
   }
+  .generate {
+    cursor: pointer;
+  }
 `;
 
 const Header = () => {
+  const { generarTareas } = useContext(TareaContext);
   return (
     <HeaderContainer>
       <h1>
@@ -53,7 +59,9 @@ const Header = () => {
               Historial de tareas completadas
             </Link>
           </li>
-          <li>Prellenar tareas</li>
+          <li className="generate" onClick={() => generarTareas()}>
+            Prellenar tareas
+          </li>
         </ul>
       </nav>
     </HeaderContainer>
