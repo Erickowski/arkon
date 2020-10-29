@@ -10,8 +10,11 @@ Este proyecto es un ejercicio para una prueba técnica. Crea tareas con su durac
 # Instalar dependencias
 $ npm install
 
-# Encender servidor de desarrollo en localhost:3000
+# Encender servidor de desarrollo en localhost:3000, la información se queda en memoria.
 $ npm start
+
+# Encender servidor de desarrollo en localhost:3000 y una fake API en el localhost:4000.
+$ npm start && npm run api
 
 # Crear version de producción y lanzar el servidor
 $ npm run build
