@@ -95,7 +95,7 @@ const Tarea = ({ tarea }) => {
       cambiarEstado({
         ...tarea,
         estado: "Terminada",
-        inicio: null,
+        inicio: moment(Date.now()).format(),
         acumulador: tarea.acumulador + (Date.now() - tarea.inicio),
       });
     }

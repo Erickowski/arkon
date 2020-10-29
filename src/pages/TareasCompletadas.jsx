@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import TareaContext from "../context/tareaContext";
 
 import Tareas from "../components/Tareas";
+import Chart from "../components/Chart";
 
 const CompletedContainer = styled.main`
   min-height: 85vh;
@@ -15,16 +16,22 @@ const CompletedContainer = styled.main`
 
 const TareasCompletadas = () => {
   const { tareas } = useContext(TareaContext);
+  const [tareasTerminadas, guardarTareasTerminadas] = useState([]);
+
+  useEffect(() => {
+    guardarTareasTerminadas(
+      tareas.filter((tarea) => tarea.estado === "Terminada")
+    );
+  }, [tareas]);
   return (
     <CompletedContainer>
       <h2>Tareas Completadas</h2>
-      {tareas.filter((tarea) => tarea.estado === "Terminada").length === 0 ? (
+      {tareas.length === 0 ? (
         <p>Aún no tienes tareas terminadas, termina una.</p>
       ) : (
         <>
-          <Tareas
-            tareas={tareas.filter((tarea) => tarea.estado === "Terminada")}
-          />
+          <Chart tareas={tareasTerminadas} />
+          <Tareas tareas={tareasTerminadas} />
         </>
       )}
     </CompletedContainer>
