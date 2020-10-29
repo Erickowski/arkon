@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { css } from "@emotion/core";
 import {
   BarChart,
   Bar,
@@ -85,7 +86,13 @@ const Chart = ({ tareas }) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="tareas" fill="#031d44" />
+      <Bar
+        dataKey="tareas"
+        fill="#031d44"
+        css={css`
+          margin-top: 2rem;
+        `}
+      />
     </BarChart>
   );
 };

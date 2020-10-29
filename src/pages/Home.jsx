@@ -20,10 +20,12 @@ const HomeContainer = styled.main`
     color: var(--white);
     border-radius: 1rem;
   }
-  .filtro-container {
+  .filtro-container,
+  .orden-container {
     width: 50vw;
     display: flex;
     justify-content: space-between;
+    margin: 0.5rem 0;
     button {
       cursor: pointer;
       background-color: var(--blue);
@@ -40,7 +42,7 @@ const Home = () => {
 
   const [tareasTotal, guardarTareasTotal] = useState([]);
   const [filtro, guardarFiltro] = useState("");
-  const [error, guardarError] = useState(false);
+  const [orden, guardarOrden] = useState("");
 
   const handleFiltro = () => {
     if (filtro.trim() === "") {
@@ -61,10 +63,25 @@ const Home = () => {
     }
   };
 
+  const handleOrden = () => {
+    if (orden.trim() === "" || orden === "estado") {
+      guardarTareasTotal([
+        ...tareas.sort((a, b) => a.estado.charCodeAt() - b.estado.charCodeAt()),
+      ]);
+    }
+    if (orden === "nombre") {
+      guardarTareasTotal(
+        tareas.sort((a, b) => a.nombre.charCodeAt() - b.nombre.charCodeAt())
+      );
+    }
+    if (orden === "duracion") {
+      guardarTareasTotal([...tareas.sort((a, b) => a.duracion - b.duracion)]);
+    }
+  };
+
   useEffect(() => {
-    guardarTareasTotal(
-      tareas.sort((a, b) => a.estado.charCodeAt() - b.estado.charCodeAt())
-    );
+    guardarTareasTotal(tareas);
+    handleOrden();
   }, [tareas]);
 
   return (
@@ -78,7 +95,22 @@ const Home = () => {
             Da click en el estado de las tareas para empezarlas o completarlas.
           </p>
           <p>Pausar la tarea o reinicia el avance con los iconos.</p>
-          {error && <p className="error">{error}</p>}
+          <div className="orden-container">
+            <label htmlFor="orden">Ordenar</label>
+            <select
+              value={orden}
+              onChange={(e) => guardarOrden(e.target.value)}
+            >
+              <option value="">--Selecciona--</option>
+              <option value="nombre">Nombre</option>
+              <option value="duracion">Duración</option>
+              <option value="tiempo">Tiempo completado</option>
+              <option value="estado">Estado</option>
+            </select>
+            <button type="button" onClick={() => handleOrden()}>
+              {orden.trim() === "" ? "Reiniciar orden" : "Ordenar"}
+            </button>
+          </div>
           <div className="filtro-container">
             <label htmlFor="filtrar">Filtrar por duración</label>
             <select
