@@ -218,25 +218,38 @@ const TareaState = ({ children }) => {
         default:
           break;
       }
-      randomTareas.push({
-        id: shortid.generate(),
-        nombre,
-        estado: estado[estadoTarea],
-        duracion: duracion[duracionTarea],
-        tiempo,
-        acumulador: estadoTarea === 0 ? 0 : tiempo * 60000,
-        inicio:
-          estadoTarea === 0 ? null : actualDays[Math.round(Math.random() * 6)],
-      });
-    }
-    try {
-      await Axios.post("http://localhost:4000/tareas", randomTareas);
-      dispatch({
-        type: GENERAR_TAREAS,
-        payload: randomTareas,
-      });
-    } catch (error) {
-      console.log(error);
+      try {
+        randomTareas.push({
+          id: shortid.generate(),
+          nombre,
+          estado: estado[estadoTarea],
+          duracion: duracion[duracionTarea],
+          tiempo,
+          acumulador: estadoTarea === 0 ? 0 : tiempo * 60000,
+          inicio:
+            estadoTarea === 0
+              ? null
+              : actualDays[Math.round(Math.random() * 6)],
+        });
+        await Axios.post("http://localhost:4000/tareas", {
+          id: shortid.generate(),
+          nombre,
+          estado: estado[estadoTarea],
+          duracion: duracion[duracionTarea],
+          tiempo,
+          acumulador: estadoTarea === 0 ? 0 : tiempo * 60000,
+          inicio:
+            estadoTarea === 0
+              ? null
+              : actualDays[Math.round(Math.random() * 6)],
+        });
+        dispatch({
+          type: GENERAR_TAREAS,
+          payload: randomTareas,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

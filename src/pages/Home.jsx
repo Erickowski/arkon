@@ -80,9 +80,13 @@ const Home = () => {
   };
 
   useEffect(() => {
-    obtenerTareas();
-    handleOrden();
-  }, []);
+    if (tareas.length === 0) {
+      obtenerTareas();
+    } else {
+      guardarTareasTotal(tareas);
+      handleOrden();
+    }
+  }, [tareas]);
 
   return (
     <HomeContainer>
@@ -126,7 +130,7 @@ const Home = () => {
               {filtro.trim() === "" ? "Reiniciar filtro" : "Filtrar"}
             </button>
           </div>
-          <Tareas tareas={tareas} />
+          <Tareas tareas={tareasTotal} />
         </>
       )}
     </HomeContainer>

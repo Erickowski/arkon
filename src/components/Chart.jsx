@@ -90,7 +90,7 @@ const Chart = ({ tareas }) => {
         dataKey="tareas"
         fill="#031d44"
         css={css`
-          margin-top: 2rem;
+          margin-top: 3rem;
         `}
       />
     </BarChart>
