@@ -5,6 +5,7 @@ import TareaContext from "../context/tareaContext";
 
 import Tareas from "../components/Tareas";
 
+// Estilos del componente
 const HomeContainer = styled.main`
   min-height: 85vh;
   padding: 1rem;
@@ -38,12 +39,18 @@ const HomeContainer = styled.main`
 `;
 
 const Home = () => {
+  // Extraemos tareas y la función de obtener de tareas
   const { tareas, obtenerTareas } = useContext(TareaContext);
 
+  // Creamos el state del componente
+  // Este state no funciono con la implementación de la API, este state lo que nos permite es alterar el orden y filtrar por su duración las tareas
   const [tareasTotal, guardarTareasTotal] = useState([]);
   const [filtro, guardarFiltro] = useState("");
   const [orden, guardarOrden] = useState("");
+  // Este state impide un loop infinito de las llamadas a la API
+  const [cargando, guardarCargando] = useState(false);
 
+  // Funcion para manejar el filtro por duración
   const handleFiltro = () => {
     if (filtro.trim() === "") {
       guardarTareasTotal(
@@ -63,6 +70,8 @@ const Home = () => {
     }
   };
 
+  // Funcion que re-ordena las tareas
+  // Aquí hay un bug que no pude encontrar, no se ordena 😢
   const handleOrden = () => {
     if (orden.trim() === "" || orden === "estado") {
       guardarTareasTotal([
@@ -79,13 +88,16 @@ const Home = () => {
     }
   };
 
+  // hook para llamar a la api e insertar las tareas en el state de la app
   useEffect(() => {
-    if (tareas.length === 0) {
+    if (tareas.length === 0 && cargando === false) {
       obtenerTareas();
+      guardarCargando(true);
     } else {
       guardarTareasTotal(tareas);
       handleOrden();
     }
+    // eslint-disable-next-line
   }, [tareas]);
 
   return (

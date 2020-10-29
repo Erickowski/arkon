@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import Tarea from "./Tarea";
 
+// Estilos del componente
 const TareasContainer = styled.table`
   width: 80vw;
   margin-top: 2rem;

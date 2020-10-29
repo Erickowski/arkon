@@ -7,6 +7,7 @@ import Header from "./Header";
 const Layout = ({ children }) => {
   return (
     <>
+      {/* Estilos globales */}
       <Global
         styles={css`
           :root {

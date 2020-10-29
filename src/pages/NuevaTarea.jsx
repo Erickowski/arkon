@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 import TareaContext from "../context/tareaContext";
 
+// Estilos del componente
 const NuevaTareaContainer = styled.main`
   min-height: 80vh;
   display: flex;
@@ -61,17 +62,23 @@ const NuevaTareaContainer = styled.main`
 `;
 
 const NuevaTarea = () => {
+  // Extraemos la funcion para agregar tareas del context
   const { agregarTarea } = useContext(TareaContext);
 
+  // Usamos el hook para redireccionar al usuario cuando agrega una tarea
   const history = useHistory();
 
+  // state inicial de las tareas
   const [tarea, guardarTarea] = useState({
     nombre: "",
     duracion: "",
   });
+  // Capturamos errores con este state
   const [error, guardarError] = useState(false);
+  // capturamos la hora personalizada, me parece que pudo ser mejorado con una propiedad más 
   const [horaPersonalizada, guardarHoraPersonalizada] = useState("");
 
+  // Capturamos los cambios 
   const onChange = (e) => {
     guardarTarea({
       ...tarea,
@@ -79,10 +86,14 @@ const NuevaTarea = () => {
     });
   };
 
+  // Extraemos los valores de la tarea
   const { nombre, duracion } = tarea;
 
+  // Funcion para guardar la tarea
   const onSubmit = (e) => {
+    // Prevenimos el comportamiento nativo
     e.preventDefault();
+    // Validamos campos vacios
     if (
       nombre.trim() === "" ||
       duracion === "" ||
@@ -91,6 +102,7 @@ const NuevaTarea = () => {
       guardarError("Todos los campos son obligatorios.");
       return;
     }
+    // Validamos que la duracion personalizada sea mayor a 1 y menos a 120
     if (
       duracion === "personalizada" &&
       (horaPersonalizada < 1 || horaPersonalizada > 120)
@@ -100,12 +112,17 @@ const NuevaTarea = () => {
       );
       return;
     }
+    // Asignamos la duracion a la propiedad de la tarea
     if (duracion === "personalizada") {
       tarea.duracion = horaPersonalizada;
     }
+    // Quitamos error cuando pasamos la validacion
     guardarError(false);
+    // Agregamos la tarea al state y a la api
     agregarTarea(tarea);
+    // Mandamos una alerta de que la tarea fue creada exitosamente
     Swal.fire("¡Tarea creada!", "La tarea fue creada con exito.", "success");
+    // Redireccionamos al home
     history.push("/");
   };
 

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 import TareaContext from "../context/tareaContext";
 
+// Estilos del componente
 const EditarTareaContainer = styled.main`
   min-height: 80vh;
   display: flex;
@@ -60,28 +61,35 @@ const EditarTareaContainer = styled.main`
   }
 `;
 
+// Capturamos el id de la ruta
 const EditarTarea = ({
   match: {
     params: { id },
   },
 }) => {
+  // Extraemos el valores y funciones a utilizar del context
   const { obtenerTarea, tareaeditada, actualizarTarea } = useContext(
     TareaContext
   );
 
+  // Usamos el hook useHistory para la redireccion
   const history = useHistory();
 
+  // Definimos el state del componente
   const [tarea, guardarTarea] = useState(tareaeditada);
   const [error, guardarError] = useState(false);
 
+  // Obtenemos el id de la tarea y lo guardamos en el state
   useEffect(() => {
     obtenerTarea(id);
     guardarTarea(tareaeditada);
     // eslint-disable-next-line
   }, [id, tareaeditada]);
 
+  // Extraemos los valores de la tarea
   const { nombre, duracion, tiempo } = tarea;
 
+  // Mandejamos el cambio en el formulario para guardarlo en el state
   const onChange = (e) => {
     guardarTarea({
       ...tarea,
@@ -89,8 +97,11 @@ const EditarTarea = ({
     });
   };
 
+  // Manejamos el submit
   const onSubmit = (e) => {
+    // Prevenimos la recarga
     e.preventDefault();
+    // Validamos que los campos no esten vacios
     if (
       nombre.trim() === "" ||
       duracion === "" ||
@@ -99,13 +110,18 @@ const EditarTarea = ({
       guardarError("Todos los campos son obligatorios.");
       return;
     }
+    // Validamos que la duracion personalizada no sea menor a 1 ni mayor a 120
     if (duracion === "personalizada" && (tiempo < 1 || tiempo > 120)) {
       guardarError("El tiempo no puede ser menor a 0 o mayor de 120 minutos");
       return;
     }
+    // Regresamos el error a su valor inicial
     guardarError(false);
+    // Acttualizamos la tarea en la api y en el state
     actualizarTarea(tarea);
+    // Mostramos una alerta
     Swal.fire("¡Tarea editada!", "La tarea fue editada con exito.", "success");
+    // Redirigimos al home
     history.push("/");
   };
 

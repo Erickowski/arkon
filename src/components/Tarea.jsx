@@ -6,6 +6,7 @@ import moment from "moment";
 
 import TareaContext from "../context/tareaContext";
 
+// Estilos del componente
 const TareaContainer = styled.tr`
   th {
     span,
@@ -53,6 +54,7 @@ const TareaContainer = styled.tr`
 `;
 
 const Tarea = ({ tarea }) => {
+  // Importamos todos los actions que vamos a usar
   const {
     eliminarTarea,
     cambiarEstado,
@@ -61,6 +63,7 @@ const Tarea = ({ tarea }) => {
     completarTarea,
   } = useContext(TareaContext);
 
+  // Funcion para eliminar una tarea, se muestra una alerta para confirmar la acción
   const handleDelete = () => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -83,6 +86,7 @@ const Tarea = ({ tarea }) => {
     });
   };
 
+  // Función para manejar el cambio del estado de la tarea
   const handleState = () => {
     if (tarea.estado === "Sin empezar" || tarea.estado === "Pausada") {
       cambiarEstado({
@@ -101,6 +105,7 @@ const Tarea = ({ tarea }) => {
     }
   };
 
+  // Función para manejar la pausa de la tarea
   const handlePause = () => {
     pausarTarea({
       ...tarea,
@@ -108,6 +113,7 @@ const Tarea = ({ tarea }) => {
     });
   };
 
+  // Helper para convertir milisegundos a horas, minutos y segundos
   const convertMs = (miliseconds) => {
     const hours = Math.floor(miliseconds / 3600000);
     const minutes = Math.floor((miliseconds % 3600000) / 60000);
@@ -115,6 +121,7 @@ const Tarea = ({ tarea }) => {
     return { clock: `${hours}:${minutes}:${seconds}`, hours, minutes };
   };
 
+  // Al cargar el componente si una tarea sobrepaso su duración se marca como completa. No es en tiempo real.
   useEffect(() => {
     if (tarea.estado === "En curso") {
       const horaactual = new Date();
@@ -133,14 +140,19 @@ const Tarea = ({ tarea }) => {
       <th>{tarea.nombre}</th>
       <th>{tarea.tiempo} min.</th>
       <th>
+        {/* Dependiendo del estado de la tarea es lo que se va a mostrar */}
+        {/* Solo se muestra un texto si no esta iniciada */}
         {tarea.estado === "Sin empezar" && "No iniciada"}
+        {/* Si está "En curso" la tarea, se muestra el tiempo que ha transcurrido desde que se inicio */}
         {tarea.estado === "En curso" &&
           moment(tarea.inicio).from(Date.now() + tarea.acumulador)}
+        {/* Si está "Pausada" o "Terminada" se muestra el tiempo de avance o el tiempo e que concluyo */}
         {(tarea.estado === "Pausada" || tarea.estado === "Terminada") &&
           convertMs(tarea.acumulador).clock + " (h:m:s)"}
       </th>
       <th className="estado">
         <span onClick={() => handleState()}>{tarea.estado}</span>
+        {/* Si la tarea esta en curso se muestra el icono para pausarla */}
         {tarea.estado === "En curso" && (
           <>
             {tarea.inicio && (

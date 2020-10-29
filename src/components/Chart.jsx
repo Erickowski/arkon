@@ -11,10 +11,14 @@ import {
 } from "recharts";
 import moment from "moment";
 
+// Importamos el hook
 import UseWeek from "../hooks/useWeek";
 
 const Chart = ({ tareas }) => {
+  // Obtenemos los dias de la semana actual
   const weekDays = UseWeek(Date.now());
+
+  // Construimos la data del gráfico con base en el numero de tareas terminadas en X día
   let data = [
     {
       name: moment(weekDays[0]).format("l"),
@@ -67,6 +71,7 @@ const Chart = ({ tareas }) => {
     },
   ];
 
+  // Volvemos a cargar el componente si hay más tareas terminadas
   useEffect(() => {}, [tareas]);
 
   return (

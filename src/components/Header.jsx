@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import TareaContext from "../context/tareaContext";
 
+// Estilos del componente
 const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
@@ -40,7 +41,9 @@ const HeaderContainer = styled.header`
 `;
 
 const Header = () => {
+  // Extraemos el action para generar tareas aleatorias
   const { generarTareas } = useContext(TareaContext);
+
   return (
     <HeaderContainer>
       <h1>

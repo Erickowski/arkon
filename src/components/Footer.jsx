@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+// Estilos al componente
 const FooterContainer = styled.footer`
   background-color: var(--blue);
   display: flex;
