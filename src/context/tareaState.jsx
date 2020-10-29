@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 import shortid from "shortid";
-import moment from "moment";
 
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
@@ -16,6 +15,8 @@ import {
   COMPLETAR_TAREA,
   GENERAR_TAREAS,
 } from "../types";
+
+import UseWeek from "../hooks/useWeek";
 
 const TareaState = ({ children }) => {
   const initialState = {
@@ -141,14 +142,7 @@ const TareaState = ({ children }) => {
 
   // Generar tareas aleatorias
   const generarTareas = () => {
-    const actualDays = [];
-    const startOfPeriod = moment(Date.now()),
-      begin = moment(startOfPeriod).isoWeekday(1);
-    begin.startOf("isoWeek");
-    for (let i = 0; i < 7; i++) {
-      actualDays.push(begin.format());
-      begin.add("d", 1);
-    }
+    const actualDays = UseWeek(Date.now());
     let randomTareas = [];
     let estado = ["Sin empezar", "Terminada"];
     let duracion = ["corta", "media", "larga", "personalizada"];
